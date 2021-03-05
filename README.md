@@ -1,6 +1,6 @@
 # HLS Stream
 
-A sample project to stream RTSP to React frontend via ExpressJS.
+A sample project to convert RTSP to HLS and stream it to React frontend via ExpressJS.
 
 ### INSTALL
 
