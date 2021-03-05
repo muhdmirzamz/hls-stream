@@ -21,12 +21,12 @@ app.get('/video', (req, res) => {
         '-profile:v baseline',
         '-fflags -nobuffer', // no idea whether this causes lower latency
         '-probesize 32', // no idea whether this causes lower latency
-        '-s 480x360',
-        '-level 3.0',
+        '-s 480x360', // resolution (scale)
+        '-level 3.0', 
         '-start_number 0',
-        '-hls_time 2',
+        '-hls_time 2', // length of each segment (2s in this case)
         '-hls_list_size 0',
-        '-f hls'
+        '-f hls' // format to hls
     ]).output('videos/output.m3u8') // output.m3u8 will be in a directory called "videos"
         .on('end', () => {
             console.log('end');
