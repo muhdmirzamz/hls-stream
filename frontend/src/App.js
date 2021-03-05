@@ -1,52 +1,41 @@
-import React, {useEffect} from 'react'
-import ReactDOM from 'react-dom';
+import React, {useEffect, useState} from 'react'
 
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
-import axios from 'axios';
-
-// import ReactHlsPlayer from 'react-hls-player'
+import axios from 'axios'
+import ReactHlsPlayer from 'react-hls-player'
 
 function App() {
 
-  
-  // <div dangerouslySetInnerHTML={{__html: this.html}}/>
+  const [fileDetected, setFileDetected] = useState(false)
 
   useEffect(() => {
-      axios.get("/video").then(response => {
+    axios.get("/video").then(res => {
+      console.log("res status: " + res.status)
 
-        console.log(response)
+      if (res.status === 200) {
+        console.log("res status is 200")
 
-        ReactDOM.render(React.createElement("div", {dangerouslySetInnerHTML: {__html: response.data}}), document.getElementById('video-player'))
-      })
-    
-  }, []);
+        setFileDetected(true)
+      }
+    })
+  }, [])
 
   return (
     <div id="video-player" className="App">
       
-      
-      {/* <video id="video" width="500" height="500" controls></video> */}
-        {/* <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-        <script>
-            const video = document.getElementById('video');
-            const videoSrc = '/videos/output.m3u8';
+      {fileDetected ? 
+        <ReactHlsPlayer
+          url='videos/output.m3u8'
+          autoplay={true}
+          controls={true}
+          width={640}
+          height={480}
+          muted="muted"
+        />
+        : null
+      }
 
-            if (Hls.isSupported()) {
-                const hls = new Hls();
-
-                hls.loadSource(videoSrc);
-                hls.attachMedia(video);
-                hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                    video.play();
-                });
-            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                video.src = videoSrc;
-                video.addEventListener('loadedmetadata', () => {
-                    video.play();
-                });
-            }
-        </script> */}
     </div>
   );
 }

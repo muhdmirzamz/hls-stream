@@ -5,6 +5,7 @@ ffmpeg.setFfmpegPath(ffmpegInstaller.path);
 
 ffmpeg('videos/video.mp4', { timeout: 432000 }).addOptions([
     '-profile:v baseline',
+    '-s 640x480',
     '-level 3.0',
     '-start_number 0',
     '-hls_time 10',
