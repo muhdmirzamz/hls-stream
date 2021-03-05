@@ -12,16 +12,12 @@ app.get('/video', (req, res) => {
 
     var headersSent = false
 
-    // rtsp://admin:As123789@10.168.12.110
-    // videos/video.mp4
+    // for rtsp
+    // rtsp://username:password@ip_address
 
-    // 640x480 5s segments 20s
-    // 640x480 3s segments 21s?
-    
-    // 480x360 5s segments 20s
-    // 480x360 3s segments 
+    // for mp4
 
-    ffmpeg('rtsp://admin:Aa123789@10.168.12.110', { timeout: 432000 }).addOptions([
+    ffmpeg('videos/video.mp4', { timeout: 432000 }).addOptions([
         '-profile:v baseline',
         '-fflags -nobuffer', // no idea whether this causes lower latency
         '-probesize 32', // no idea whether this causes lower latency
@@ -31,14 +27,18 @@ app.get('/video', (req, res) => {
         '-hls_time 2',
         '-hls_list_size 0',
         '-f hls'
-    ]).output('videos/output.m3u8')
+    ]).output('videos/output.m3u8') // output.m3u8 will be in a directory called "videos"
         .on('end', () => {
             console.log('end');
         })
         .on('progress', function (progress) {
+
+            // while ffmpeg is converting and processing the files
+            // check to see if the .m3u8 file has been created
+            // we need it for the video player to play something
             console.log('Processing: ' + progress.percent + '% done')
 
-            // console.log(__dirname + req.url)
+            // check if the file exists
             fs.access("videos/output.m3u8", fs.constants.F_OK, function (err) {
                 if (err) {
                     console.log("Processing error")
@@ -49,8 +49,7 @@ app.get('/video', (req, res) => {
                     if (headersSent === false) {
                         console.log("Processing success")
                         console.log("File exists")
-                        // this.fileDetected = true
-    
+
     
                         //file exists
                         console.log("==========")
@@ -59,7 +58,9 @@ app.get('/video', (req, res) => {
                         
                         headersSent = true
                         
-                        res.sendStatus(200)
+                        // when the .m3u8 file has been created
+                        // send a response to your frontend so that the player can be initialised and shown
+                        res.sendStatus(200) 
                     }
                 }
             });
@@ -68,7 +69,8 @@ app.get('/video', (req, res) => {
 });
 
 
-const server = app.listen(8084);
+// we are using a proxy, so make sure the port number corresponds to your frontend's package.json proxy attribute
+const server = app.listen(9000); 
 
 new hls(server, {
     provider: {

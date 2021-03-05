@@ -13,6 +13,8 @@ function App() {
     axios.get("/video").then(res => {
       console.log("res status: " + res.status)
 
+      // look out for a status 200 to set state variable
+      // this will toggle visibility for player
       if (res.status === 200) {
         console.log("res status is 200")
 
@@ -24,6 +26,8 @@ function App() {
   return (
     <div id="video-player" className="App">
       
+      {/* only initiate the player when the output file is ready */}
+      {/* using a state variable here to toggle visibility */}
       {fileDetected ? 
         <ReactHlsPlayer
           url='videos/output.m3u8'

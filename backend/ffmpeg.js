@@ -1,3 +1,6 @@
+// you can run this file on its own
+// node ffmpeg.js
+// this will convert whatever file you have in the "videos" folder
 const ffmpeg = require('fluent-ffmpeg');
 const ffmpegInstaller = require('@ffmpeg-installer/ffmpeg');
 
