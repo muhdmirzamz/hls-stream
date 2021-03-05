@@ -38,5 +38,3 @@ Make sure there's something to convert. Put the video file into the "videos" fol
 - Check the ```ffmpeg``` function in ```app.js``` to make sure you are converting the right file/folder. 
 - This project does not currently delete the ```.ts``` files.
 - This project uses a proxy attribute in the ```package.json``` file, it does not use CORS.
-
-Run ```npm start``` on both the frontend and backend.
