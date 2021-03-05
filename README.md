@@ -25,7 +25,7 @@ A sample project to convert RTSP to HLS and stream it to React frontend via Expr
 
 Make sure there's something to convert. Put the video file into the "videos" folder in your backend. If there is no "videos" folder, create one. So the "videos" folder should be in backend/videos. Your video should be in backend/videos/video.mp4
 
-#### Technologies used
+### Technologies used
 - React
 - Express JS
 - [hls-server](https://www.npmjs.com/package/hls-server)
