@@ -31,7 +31,7 @@ If you are using `React Router` and your router base name is not `'/'` and is so
 
 #### Client side
 
-```
+``` javascript
 axios.get("/main/video").then(res => {
   console.log("res status: " + res.status)
 
@@ -43,7 +43,7 @@ axios.get("/main/video").then(res => {
 })
 ```
 
-```
+``` javascript
 {fileDetected ? 
     <ReactHlsPlayer
         url='videos/output.m3u8'
@@ -64,9 +64,11 @@ axios.get("/main/video").then(res => {
 ```
 
 #### Server side
-`app.get('/main/video', (req, res) => {})`
-
+``` javascript
+app.get('/main/video', (req, res) => {})
 ```
+
+``` javascript
 ffmpeg('main/videos/video_name.mp4', { timeout: 432000 }).addOptions([
 
 ]).output('main/videos/output.m3u8')
